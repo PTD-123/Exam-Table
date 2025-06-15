@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dash-style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="menu-header">
+            <div class="menu-header-left">
+                <div class="icon-calender"></div>
+                <div class="head-left">KU-EXAM</div>
+            </div>
+            <div class="menu-header-right">
+                <a href="/login/login.html" class="log-out">
+                    <div class="log-out-text">ออกจากระบบ</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main-data">
+        <div class="head-main" id="main-table">
+            <div class="row-head-1">ยินดีต้อนรับ !!!</div>
+            <div class="row-head-2">
+                <div class="text1">ระบบจัดตารางสอบ</div>
+                <div class="text2">ของคุณพร้อมแล้ว</div>
+            </div>
+        </div>
+        <div class="contact">
+            <div class="row-contact-1">
+                <div class="account">
+                    <div class="head-account">บัญชี</div>
+                    <div class="detail-account">example.k@ku.th</div>
+                </div>
+                <div class="faculty">
+                    <div class="head-faculty">คณะ</div>
+                    <div class="detail-faculty">วิศวกรรมศาสตร์</div>
+                </div>
+            </div>
+            <div class="row-contact-2">
+                <div class="id-me">
+                    <div class="head-id-me">รหัสประจำตัว</div>
+                    <div class="detail-id-me">671050xxxx</div>
+                </div>
+                <div class="branch">
+                    <div class="head-branch">สาขา</div>
+                    <div class="detail-branch">คอมพิวเตอร์</div>
+                </div>
+            </div>
+        </div>
+        <div class="exam-table-container" id="table-container">
+            <table class="exam-table" id="main-table">
+                <thead>
+                    <tr>
+                        <th>รหัสวิชา</th>
+                        <th>หมู่</th>
+                        <th>ชื่อวิชา</th>
+                        <th>สถานที่</th>
+                        <th>เวลา</th>
+                        <th>แก้ไข</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>เสาร์ xx<br>มิถุนายน<br>2568</td>
+                        <td>01999xxx</td>
+                        <td>xx</td>
+                        <td>วิชา<br>1</td>
+                        <td>ศร 3 - xxx</td>
+                        <td>12.xx</td>
+                    
+                    </tr>
+                    <!-- ข้อมูลจริงจะถูกแทนที่ที่นี่ -->
+                </tbody>
+            </table>
+        </div>
+        <div class="btn">
+            <button id="share" onclick="toggleEditMode()">แก้ไข</button>
+            <button id="save" onclick="downloadPDF()">บันทึก</button>
+        </div>
+        <div class="map">
+            <div class="head-map">เส้นทาง</div>
+            <div class="lh1">
+                <div class="name-lh">ศร.1</div>
+                <a href="https://www.google.co.th/maps/place/%E0%B8%A8%E0%B8%A31/@13.8472566,100.5707272,20z/data=!4m14!1m7!3m6!1s0x30e29d1e111be769:0x4332e8cd6aec8c31!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiB4Lip4LiV4Lij4Lio4Liy4Liq4LiV4Lij4LmMIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4muC4suC4h-C5gOC4guC4mQ!8m2!3d13.8479786!4d100.5722762!16zL20vMDM1amIx!3m5!1s0x30e29d000648b6fb:0xa710774cc178997f!8m2!3d13.8471872!4d100.5711534!16s%2Fg%2F11y5tldc2q?hl=th&entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">ดูเส้นทางที่นี่</a>
+            </div>
+            <div class="lh3">
+                <div class="name-lh">ศร.3</div>
+                <a href="https://www.google.co.th/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%A7%E0%B8%A1+3+(%E0%B8%A8%E0%B8%A3.3)/@13.8498588,100.5682207,17z/data=!4m14!1m7!3m6!1s0x30e29d1e111be769:0x4332e8cd6aec8c31!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiB4Lip4LiV4Lij4Lio4Liy4Liq4LiV4Lij4LmMIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4muC4suC4h-C5gOC4guC4mQ!8m2!3d13.8479786!4d100.5722762!16zL20vMDM1amIx!3m5!1s0x30e29cde668d83bf:0x67aeda0ad39d18e4!8m2!3d13.8492009!4d100.5694062!16s%2Fg%2F1hm5c_836?hl=th&entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">ดูเส้นทางที่นี่</a>
+            </div>
+            <div class="lh4">
+                <div class="name-lh">ศร.4</div>
+                <a href="https://www.google.co.th/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%A7%E0%B8%A1+4+(%E0%B8%A8%E0%B8%A3.4)/@13.8499561,100.5668353,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29cde7c3be669:0x2c478b2bc7495f73!8m2!3d13.8499509!4d100.5694102!16s%2Fg%2F11csqbl44k?hl=th&entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">ดูเส้นทางที่นี่</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // ดึง token จาก localStorage
+    const token = localStorage.getItem('token');
+
+    // อ้างอิง element ที่จะแสดงข้อมูลโปรไฟล์
+    const detailAccount = document.querySelector('.detail-account');
+    const detailFaculty = document.querySelector('.detail-faculty');
+    const detailIdMe = document.querySelector('.detail-id-me');
+    const detailBranch = document.querySelector('.detail-branch');
+    const examTableBody = document.querySelector('.exam-table tbody');
+
+    async function fetchProfile() {
+        if (!token) {
+            alert('กรุณาเข้าสู่ระบบก่อน');
+            window.location.href = '/index.html'; // เปลี่ยน path ให้ตรงกับ login page จริงของคุณ
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:3000/api/profile', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            if (!res.ok) {
+                localStorage.removeItem('token');
+                alert('Token หมดอายุหรือไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่');
+                window.location.href = '/index.html'; // เปลี่ยน path ตามจริง
+                return;
+            }
+
+            const data = await res.json();
+
+            // แสดงข้อมูลโปรไฟล์
+            detailAccount.textContent = data.username || '-';
+            detailFaculty.textContent = data.Major || '-';
+            detailIdMe.textContent = data.studentId || '-';
+            detailBranch.textContent = data.Minor || '-';
+
+            // แสดงตารางสอบ
+            renderExamTable(data.subjects);
+
+        } catch (error) {
+            alert('เกิดข้อผิดพลาดในการดึงข้อมูล');
+            window.location.href = '/index.html';
+        }
+    }
+
+    function renderExamTable(subjects) {
+        examTableBody.innerHTML = '';
+
+        if (!subjects || subjects.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td colspan="5" style="text-align:center;">ไม่มีข้อมูลตารางสอบ</td>`;
+            examTableBody.appendChild(tr);
+            return;
+        }
+
+        subjects.forEach(sub => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${sub.code || '-'}</td>
+                <td>${sub.group || '-'}</td>
+                <td>${sub.name || '-'}</td>
+                <td>${sub.location || '-'}</td>
+                <td>${sub.time || '-'}</td>
+            `;
+            examTableBody.appendChild(tr);
+        });
+    }
+
+    // เมื่อกดปุ่มออกจากระบบ
+    document.querySelector('.log-out').addEventListener('click', e => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        window.location.href = '/public/index.html'; // เปลี่ยน path ตามจริง
+    });
+
+    window.onload = fetchProfile;
+    let editMode = false;
+
+function toggleEditMode() {
+  editMode = !editMode;
+  const table = document.getElementById("main-table");
+  if (editMode) {
+    table.classList.add("edit-mode");
+  } else {
+    table.classList.remove("edit-mode");
+  }
+}
+function renderExamTable(subjects) {
+    examTableBody.innerHTML = '';
+
+    if (!subjects || subjects.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="6" style="text-align:center;">ไม่มีข้อมูลตารางสอบ</td>`;
+        examTableBody.appendChild(tr);
+        return;
+    }
+
+    subjects.forEach((sub, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${sub.code || '-'}</td>
+            <td>${sub.group || '-'}</td>
+            <td>${sub.name || '-'}</td>
+            <td>${sub.location || '-'}</td>
+            <td>${sub.time || '-'}</td>
+            <td class="edit-col"></td>
+        `;
+        examTableBody.appendChild(tr);
+    });
+
+    if (editMode) addDeleteButtons();
+}
+
+
+function addDeleteButtons() {
+    const rows = examTableBody.querySelectorAll("tr");
+    rows.forEach(row => {
+        const td = row.querySelector(".edit-col");
+        td.innerHTML = `<button class="delete-btn" onclick="deleteRow(this)">ลบ</button>`;
+    });
+}
+
+function toggleEditMode() {
+    editMode = !editMode;
+    const table = document.getElementById("main-table");
+
+    if (editMode) {
+        table.classList.add("edit-mode");
+        addDeleteButtons();
+    } else {
+        table.classList.remove("edit-mode");
+        const buttons = document.querySelectorAll(".delete-btn");
+        buttons.forEach(btn => btn.remove());
+    }
+}
+
+function downloadPDF() {
+  const element = document.getElementById("table-container");
+  const opt = {
+    margin: 0.3,
+    filename: "ตารางสอบ.pdf",
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      scrollY: 0,
+    },
+    jsPDF: {
+      unit: "in",
+      format: "a4",
+      orientation: "portrait",
+      putOnlyUsedFonts: true,
+    },
+    pagebreak: {
+      mode: ["avoid-all", "css", "legacy"],
+    },
+  };
+  html2pdf().set(opt).from(element).save();}
+
+  function deleteRow(button) {
+    const row = button.closest('tr');
+    const subjectCode = row.children[0].textContent;
+
+    if (confirm(`ต้องการลบวิชา ${subjectCode} ใช่หรือไม่?`)) {
+        fetch(`http://localhost:3000/api/subject/${subjectCode}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Delete failed');
+            row.remove(); // ลบแถวจาก DOM
+        })
+        .catch(err => alert('ลบไม่สำเร็จ: ' + err.message));
+    }
+}
+
+</script>
+
+</body>
+</html>

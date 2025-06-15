@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="login-style.css">
+</head>
+<body>
+  <div class="login">
+    <div class="head">
+      <div class="logo"></div>
+      <div class="head-web">
+        <div class="head-ku">KU-</div>
+        <div class="head-exam">EXAM</div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="head-main">เข้าสู่ระบบ</div>
+      <div class="login-main">
+        <div class="email-box">
+          <input type="text" placeholder="อีเมล" id="email">
+        </div>
+        <div class="password-box">
+          <input type="password" placeholder="รหัสผ่าน" id="password">
+          <span id="icon-eye" onclick="togglePassword()">
+            <img src="view.png" alt="">
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn">
+      <button type="submit" id="btn-login">ลงชื่อเข้าใช้</button>
+    </div>
+
+    <div id="error" style="color:red; text-align:center;"></div>
+    <div id="profile" style="white-space: pre-wrap; text-align:center; margin-top: 10px;"></div>
+  </div>
+
+  <script>
+    document.getElementById('btn-login').addEventListener('click', async () => {
+      const username = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error');
+      const profileDiv = document.getElementById('profile');
+      errorDiv.textContent = '';
+      profileDiv.textContent = '';
+
+      try {
+        // 1. POST /api/login
+        const response = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          errorDiv.textContent = 'Login failed: ' + (data.message || response.statusText);
+          return;
+        }
+
+        const token = data.token;
+
+        // เก็บ token ลง localStorage
+        localStorage.setItem('token', token);
+
+        errorDiv.style.color = 'green';
+        errorDiv.textContent = 'Login Success!!';
+        console.log('Sending token:', token);
+        // 2. GET /api/profile (ถ้าต้องการดึงข้อมูล user)
+        const profileResponse = await fetch('http://localhost:3000/api/profile', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        if (!profileResponse.ok) {
+          const errData = await profileResponse.json();
+          profileDiv.textContent = '❌ Profile fetch failed: ' + (errData.message || profileResponse.statusText);
+          return;
+        }
+        setTimeout(() => {
+          window.location.href = '/public/dashboard.html';
+        }, 1000); 
+      } catch (err) {
+        errorDiv.textContent = '❌ Error: ' + err.message;
+      }
+    });
+
+    function togglePassword() {
+      const input = document.getElementById('password');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+
+</body>
+</html>
